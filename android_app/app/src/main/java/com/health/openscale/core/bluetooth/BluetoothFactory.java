@@ -111,7 +111,7 @@ public class BluetoothFactory {
             return new BluetoothInlife(context);
         }
         if (deviceName.startsWith("QN-Scale")) {
-            return new BluetoothQNScale(context);
+            return new BluetoothKamtronQNScale(context);
         }
         return null;
     }

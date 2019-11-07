@@ -81,6 +81,13 @@ public abstract class FloatMeasurementView extends MeasurementView {
         nameText = getResources().getString(textId);
     }
 
+    public FloatMeasurementView(Context context, String text, int iconId) {
+        super(context, text, iconId);
+        initView(context);
+
+        nameText = text;
+    }
+
     private void initView(Context context) {
         setBackgroundIconColor(getColor());
 

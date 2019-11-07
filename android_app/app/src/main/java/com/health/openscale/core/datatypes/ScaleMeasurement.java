@@ -28,6 +28,10 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import timber.log.Timber;
 
 @Entity(tableName = "scaleMeasurements",
@@ -102,6 +106,18 @@ public class ScaleMeasurement implements Cloneable {
     @CsvColumn(mustBeSupplied = false)
     @ColumnInfo(name = "comment")
     private String comment;
+    @CsvColumn(mustBeSupplied = false)
+    @ColumnInfo(name = "sub_fat")
+    private float subFat;
+    @CsvColumn(mustBeSupplied = false)
+    @ColumnInfo(name = "protein")
+    private float protein;
+    @CsvColumn(mustBeSupplied = false)
+    @ColumnInfo(name = "metabolic_age")
+    private int metabolicAge;
+    @CsvColumn(mustBeSupplied = false)
+    @ColumnInfo(name = "body_shape")
+    private String bodyShape;
     @Ignore
     private int count;
 
@@ -126,6 +142,10 @@ public class ScaleMeasurement implements Cloneable {
         caliper2 = 0.0f;
         caliper3 = 0.0f;
         comment = "";
+        subFat = 0.f;
+        protein = 0.f;
+        metabolicAge = 0;
+        bodyShape = "";
         count = 1;
     }
 
@@ -374,6 +394,18 @@ public class ScaleMeasurement implements Cloneable {
             this.comment = comment;
         }
     }
+
+    public float getSubFat() { return subFat; }
+    public void setSubFat(float subfat) { this.subFat = subfat; }
+
+    public float getProtein() { return protein; }
+    public void setProtein(float protein) { this.protein = protein; }
+
+    public int getMetabolicAge() { return metabolicAge; }
+    public void setMetabolicAge(int metabolicAge) { this.metabolicAge = metabolicAge; }
+
+    public String getBodyShape() { return bodyShape; }
+    public void setBodyShape(String bodyShape) { this.bodyShape = bodyShape; }
 
     public float getBMI(float body_height) {
         return weight / ((body_height / 100.0f)*(body_height / 100.0f));

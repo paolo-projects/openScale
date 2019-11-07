@@ -92,6 +92,15 @@ public abstract class MeasurementView extends TableLayout {
         nameView.setText(textId);
     }
 
+    public MeasurementView(Context context, String text, int iconId) {
+        super(context);
+        this.iconId = iconId;
+
+        initView(context);
+
+        nameView.setText(text);
+    }
+
     public enum DateTimeOrder { FIRST, LAST, NONE }
 
     public static List<MeasurementView> getMeasurementList(
@@ -130,6 +139,10 @@ public abstract class MeasurementView extends TableLayout {
             unsorted.add(new BMRMeasurementView(context));
             unsorted.add(new TDEEMeasurementView(context));
             unsorted.add(new CaloriesMeasurementView(context));
+            unsorted.add(new SubcutaneousFatMeasurementView(context));
+            unsorted.add(new ProteinMeasurementView(context));
+            unsorted.add(new MetabolicAgeView(context));
+            unsorted.add(new BodyShapeMeasurementView(context));
             unsorted.add(new CommentMeasurementView(context));
             unsorted.add(new UserMeasurementView(context));
 
@@ -524,4 +537,5 @@ public abstract class MeasurementView extends TableLayout {
             setExpand(evaluatorRow.getVisibility() != View.VISIBLE);
         }
     }
+
 }

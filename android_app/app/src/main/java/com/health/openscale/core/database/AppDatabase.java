@@ -26,7 +26,7 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {ScaleMeasurement.class, ScaleUser.class}, version = 4)
+@Database(entities = {ScaleMeasurement.class, ScaleUser.class}, version = 5)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ScaleMeasurementDAO measurementDAO();
@@ -165,6 +165,55 @@ public abstract class AppDatabase extends RoomDatabase {
                         + " visceralFat, lbm, waist, hip, bone, chest,"
                         + " thigh, biceps, neck, caliper1,"
                         + " caliper2, caliper3, 0 as calories, comment FROM scaleMeasurementsOld");
+
+                // Delete old table
+                database.execSQL("DROP TABLE scaleMeasurementsOld");
+
+                database.setTransactionSuccessful();
+            }
+            finally {
+                database.endTransaction();
+            }
+        }
+    };
+
+    public static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.beginTransaction();
+            try {
+                // Drop old index
+                database.execSQL("DROP INDEX index_scaleMeasurements_userId_datetime");
+
+                // Rename old table
+                database.execSQL("ALTER TABLE scaleMeasurements RENAME TO scaleMeasurementsOld");
+
+                // Create new table with foreign key
+                database.execSQL("CREATE TABLE scaleMeasurements"
+                        + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                        + " userId INTEGER NOT NULL, enabled INTEGER NOT NULL,"
+                        + " datetime INTEGER, weight REAL NOT NULL, fat REAL NOT NULL,"
+                        + " water REAL NOT NULL, muscle REAL NOT NULL, visceralFat REAL NOT NULL,"
+                        + " lbm REAL NOT NULL, waist REAL NOT NULL, hip REAL NOT NULL,"
+                        + " bone REAL NOT NULL, chest REAL NOT NULL, thigh REAL NOT NULL,"
+                        + " biceps REAL NOT NULL, neck REAL NOT NULL, caliper1 REAL NOT NULL,"
+                        + " caliper2 REAL NOT NULL, caliper3 REAL NOT NULL, calories REAL NOT NULL,"
+                        + " comment TEXT,"
+                        + " sub_fat REAL, protein REAL, metabolic_age INT,"
+                        + " body_shape TEXT,"
+                        + " FOREIGN KEY(userId) REFERENCES scaleUsers(id)"
+                        + " ON UPDATE NO ACTION ON DELETE CASCADE)");
+
+                // Create new index on datetime + userId
+                database.execSQL("CREATE UNIQUE INDEX index_scaleMeasurements_userId_datetime"
+                        + " ON scaleMeasurements (userId, datetime)");
+
+                // Copy data from the old table
+                database.execSQL("INSERT INTO scaleMeasurements"
+                        + " SELECT id, userId, enabled, datetime, weight, fat, water, muscle,"
+                        + " visceralFat, lbm, waist, hip, bone, chest,"
+                        + " thigh, biceps, neck, caliper1,"
+                        + " caliper2, caliper3, calories, comment, 0 as sub_fat, protein, metabolic_age, body_shape, comment FROM scaleMeasurementsOld");
 
                 // Delete old table
                 database.execSQL("DROP TABLE scaleMeasurementsOld");

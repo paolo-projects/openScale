@@ -231,4 +231,20 @@
     <string name="activity_level_heavy">Heavy</string>
     <string name="activity_level_extreme">Extreme</string>
     <string name="label_upgrade_to_openScale_pro">Please upgrade to openScale pro for Bluetooth support</string>
+    <string name="bodyshape_hint">Body Shape</string>
+    <string name="bodyshape_title">Body Shape</string>
+    <string name="metabolicage_title">Metabolic Age</string>
+    <string name="protein_title">Protein</string>
+    <string name="subfat_title">Subcutaneous Fat</string>
+
+    <string name="bodyshape_noshape">No shape</string>
+    <string name="bodyshape_invobese">Invisible obesity</string>
+    <string name="bodyshape_lackexc">Lack of exercise</string>
+    <string name="bodyshape_undrwgt">Under weight</string>
+    <string name="bodyshape_normal">Normal</string>
+    <string name="bodyshape_slimmusc">Slim muscular</string>
+    <string name="bodyshape_obese">Obese</string>
+    <string name="bodyshape_ovwgt">Over weight</string>
+    <string name="bodyshape_stnmusc">Standard muscular</string>
+    <string name="bodyshape_strmusc">Strong muscular</string>
 </resources>

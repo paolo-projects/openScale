@@ -84,4 +84,18 @@
         <item>@string/activity_level_heavy</item>
         <item>@string/activity_level_extreme</item>
     </string-array>
+
+    <!-- Keep the same order when modifying -->
+    <string-array name="bodyshape_values">
+        <item>@string/bodyshape_noshape</item>
+        <item>@string/bodyshape_invobese</item>
+        <item>@string/bodyshape_lackexc</item>
+        <item>@string/bodyshape_undrwgt</item>
+        <item>@string/bodyshape_normal</item>
+        <item>@string/bodyshape_slimmusc</item>
+        <item>@string/bodyshape_obese</item>
+        <item>@string/bodyshape_ovwgt</item>
+        <item>@string/bodyshape_stnmusc</item>
+        <item>@string/bodyshape_strmusc</item>
+    </string-array>
 </resources>
